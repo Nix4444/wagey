@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String         @id @default(uuid())
+  password  String
+  role      UserRole       @default(USER)
+  balance   Decimal        @default(0) @db.Decimal(15, 2)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  username  String         @unique
+  positions UserPosition[]
+}
+
+model Events {
+  id            String         @id @default(uuid())
+  title         String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  liquidityPool LiquidityPool?
+  positions     UserPosition[]
+  priceHistory  PriceHistory[]
+}
+
+model LiquidityPool {
+  eventId   String  @id
+  yesTokens Int
+  noTokens  Int
+  event     Events? @relation(fields: [eventId], references: [id])
+}
+
+model UserPosition {
+  userId    String
+  eventId   String
+  yesTokens Int    @default(0)
+  noTokens  Int    @default(0)
+  user      User   @relation(fields: [userId], references: [id])
+  event     Events @relation(fields: [eventId], references: [id])
+
+  @@unique([userId, eventId])
+}
+
+model PriceHistory {
+  id          String   @id @default(uuid())
+  eventId     String
+  probability Decimal  @db.Decimal(3, 2)
+  yesTokens   Int
+  noTokens    Int
+  volume      Decimal  @db.Decimal(15, 2)
+  timestamp   DateTime @default(now())
+  interval    String
+  event       Events   @relation(fields: [eventId], references: [id])
+
+  @@index([eventId, timestamp])
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
