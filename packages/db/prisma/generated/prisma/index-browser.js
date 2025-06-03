@@ -144,6 +144,7 @@ exports.Prisma.LiquidityPoolScalarFieldEnum = {
 };
 
 exports.Prisma.UserPositionScalarFieldEnum = {
+  id: 'id',
   userId: 'userId',
   eventId: 'eventId',
   yesTokens: 'yesTokens',

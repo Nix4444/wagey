@@ -3571,25 +3571,25 @@ export namespace Prisma {
   }
 
   export type LiquidityPoolAvgAggregateOutputType = {
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
   }
 
   export type LiquidityPoolSumAggregateOutputType = {
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
   }
 
   export type LiquidityPoolMinAggregateOutputType = {
     eventId: string | null
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
   }
 
   export type LiquidityPoolMaxAggregateOutputType = {
     eventId: string | null
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
   }
 
   export type LiquidityPoolCountAggregateOutputType = {
@@ -3717,8 +3717,8 @@ export namespace Prisma {
 
   export type LiquidityPoolGroupByOutputType = {
     eventId: string
-    yesTokens: number
-    noTokens: number
+    yesTokens: Decimal
+    noTokens: Decimal
     _count: LiquidityPoolCountAggregateOutputType | null
     _avg: LiquidityPoolAvgAggregateOutputType | null
     _sum: LiquidityPoolSumAggregateOutputType | null
@@ -3785,8 +3785,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       eventId: string
-      yesTokens: number
-      noTokens: number
+      yesTokens: Prisma.Decimal
+      noTokens: Prisma.Decimal
     }, ExtArgs["result"]["liquidityPool"]>
     composites: {}
   }
@@ -4212,8 +4212,8 @@ export namespace Prisma {
    */
   interface LiquidityPoolFieldRefs {
     readonly eventId: FieldRef<"LiquidityPool", 'String'>
-    readonly yesTokens: FieldRef<"LiquidityPool", 'Int'>
-    readonly noTokens: FieldRef<"LiquidityPool", 'Int'>
+    readonly yesTokens: FieldRef<"LiquidityPool", 'Decimal'>
+    readonly noTokens: FieldRef<"LiquidityPool", 'Decimal'>
   }
     
 
@@ -4660,30 +4660,33 @@ export namespace Prisma {
   }
 
   export type UserPositionAvgAggregateOutputType = {
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
   }
 
   export type UserPositionSumAggregateOutputType = {
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
   }
 
   export type UserPositionMinAggregateOutputType = {
+    id: string | null
     userId: string | null
     eventId: string | null
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
   }
 
   export type UserPositionMaxAggregateOutputType = {
+    id: string | null
     userId: string | null
     eventId: string | null
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
   }
 
   export type UserPositionCountAggregateOutputType = {
+    id: number
     userId: number
     eventId: number
     yesTokens: number
@@ -4703,6 +4706,7 @@ export namespace Prisma {
   }
 
   export type UserPositionMinAggregateInputType = {
+    id?: true
     userId?: true
     eventId?: true
     yesTokens?: true
@@ -4710,6 +4714,7 @@ export namespace Prisma {
   }
 
   export type UserPositionMaxAggregateInputType = {
+    id?: true
     userId?: true
     eventId?: true
     yesTokens?: true
@@ -4717,6 +4722,7 @@ export namespace Prisma {
   }
 
   export type UserPositionCountAggregateInputType = {
+    id?: true
     userId?: true
     eventId?: true
     yesTokens?: true
@@ -4811,10 +4817,11 @@ export namespace Prisma {
   }
 
   export type UserPositionGroupByOutputType = {
+    id: string
     userId: string
     eventId: string
-    yesTokens: number
-    noTokens: number
+    yesTokens: Decimal
+    noTokens: Decimal
     _count: UserPositionCountAggregateOutputType | null
     _avg: UserPositionAvgAggregateOutputType | null
     _sum: UserPositionSumAggregateOutputType | null
@@ -4837,6 +4844,7 @@ export namespace Prisma {
 
 
   export type UserPositionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     userId?: boolean
     eventId?: boolean
     yesTokens?: boolean
@@ -4846,6 +4854,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["userPosition"]>
 
   export type UserPositionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     userId?: boolean
     eventId?: boolean
     yesTokens?: boolean
@@ -4855,6 +4864,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["userPosition"]>
 
   export type UserPositionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
     userId?: boolean
     eventId?: boolean
     yesTokens?: boolean
@@ -4864,13 +4874,14 @@ export namespace Prisma {
   }, ExtArgs["result"]["userPosition"]>
 
   export type UserPositionSelectScalar = {
+    id?: boolean
     userId?: boolean
     eventId?: boolean
     yesTokens?: boolean
     noTokens?: boolean
   }
 
-  export type UserPositionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "eventId" | "yesTokens" | "noTokens", ExtArgs["result"]["userPosition"]>
+  export type UserPositionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "eventId" | "yesTokens" | "noTokens", ExtArgs["result"]["userPosition"]>
   export type UserPositionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     event?: boolean | EventsDefaultArgs<ExtArgs>
@@ -4891,10 +4902,11 @@ export namespace Prisma {
       event: Prisma.$EventsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
+      id: string
       userId: string
       eventId: string
-      yesTokens: number
-      noTokens: number
+      yesTokens: Prisma.Decimal
+      noTokens: Prisma.Decimal
     }, ExtArgs["result"]["userPosition"]>
     composites: {}
   }
@@ -4978,8 +4990,8 @@ export namespace Prisma {
      * // Get first 10 UserPositions
      * const userPositions = await prisma.userPosition.findMany({ take: 10 })
      * 
-     * // Only select the `userId`
-     * const userPositionWithUserIdOnly = await prisma.userPosition.findMany({ select: { userId: true } })
+     * // Only select the `id`
+     * const userPositionWithIdOnly = await prisma.userPosition.findMany({ select: { id: true } })
      * 
      */
     findMany<T extends UserPositionFindManyArgs>(args?: SelectSubset<T, UserPositionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPositionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -5023,9 +5035,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many UserPositions and only return the `userId`
-     * const userPositionWithUserIdOnly = await prisma.userPosition.createManyAndReturn({
-     *   select: { userId: true },
+     * // Create many UserPositions and only return the `id`
+     * const userPositionWithIdOnly = await prisma.userPosition.createManyAndReturn({
+     *   select: { id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -5114,9 +5126,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more UserPositions and only return the `userId`
-     * const userPositionWithUserIdOnly = await prisma.userPosition.updateManyAndReturn({
-     *   select: { userId: true },
+     * // Update zero or more UserPositions and only return the `id`
+     * const userPositionWithIdOnly = await prisma.userPosition.updateManyAndReturn({
+     *   select: { id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5320,10 +5332,11 @@ export namespace Prisma {
    * Fields of the UserPosition model
    */
   interface UserPositionFieldRefs {
+    readonly id: FieldRef<"UserPosition", 'String'>
     readonly userId: FieldRef<"UserPosition", 'String'>
     readonly eventId: FieldRef<"UserPosition", 'String'>
-    readonly yesTokens: FieldRef<"UserPosition", 'Int'>
-    readonly noTokens: FieldRef<"UserPosition", 'Int'>
+    readonly yesTokens: FieldRef<"UserPosition", 'Decimal'>
+    readonly noTokens: FieldRef<"UserPosition", 'Decimal'>
   }
     
 
@@ -5752,15 +5765,15 @@ export namespace Prisma {
 
   export type PriceHistoryAvgAggregateOutputType = {
     probability: Decimal | null
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
     volume: Decimal | null
   }
 
   export type PriceHistorySumAggregateOutputType = {
     probability: Decimal | null
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
     volume: Decimal | null
   }
 
@@ -5768,8 +5781,8 @@ export namespace Prisma {
     id: string | null
     eventId: string | null
     probability: Decimal | null
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
     volume: Decimal | null
     timestamp: Date | null
     interval: string | null
@@ -5779,8 +5792,8 @@ export namespace Prisma {
     id: string | null
     eventId: string | null
     probability: Decimal | null
-    yesTokens: number | null
-    noTokens: number | null
+    yesTokens: Decimal | null
+    noTokens: Decimal | null
     volume: Decimal | null
     timestamp: Date | null
     interval: string | null
@@ -5937,8 +5950,8 @@ export namespace Prisma {
     id: string
     eventId: string
     probability: Decimal
-    yesTokens: number
-    noTokens: number
+    yesTokens: Decimal
+    noTokens: Decimal
     volume: Decimal
     timestamp: Date
     interval: string
@@ -6030,8 +6043,8 @@ export namespace Prisma {
       id: string
       eventId: string
       probability: Prisma.Decimal
-      yesTokens: number
-      noTokens: number
+      yesTokens: Prisma.Decimal
+      noTokens: Prisma.Decimal
       volume: Prisma.Decimal
       timestamp: Date
       interval: string
@@ -6462,8 +6475,8 @@ export namespace Prisma {
     readonly id: FieldRef<"PriceHistory", 'String'>
     readonly eventId: FieldRef<"PriceHistory", 'String'>
     readonly probability: FieldRef<"PriceHistory", 'Decimal'>
-    readonly yesTokens: FieldRef<"PriceHistory", 'Int'>
-    readonly noTokens: FieldRef<"PriceHistory", 'Int'>
+    readonly yesTokens: FieldRef<"PriceHistory", 'Decimal'>
+    readonly noTokens: FieldRef<"PriceHistory", 'Decimal'>
     readonly volume: FieldRef<"PriceHistory", 'Decimal'>
     readonly timestamp: FieldRef<"PriceHistory", 'DateTime'>
     readonly interval: FieldRef<"PriceHistory", 'String'>
@@ -6928,6 +6941,7 @@ export namespace Prisma {
 
 
   export const UserPositionScalarFieldEnum: {
+    id: 'id',
     userId: 'userId',
     eventId: 'eventId',
     yesTokens: 'yesTokens',
@@ -7039,20 +7053,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -7187,8 +7187,8 @@ export namespace Prisma {
     OR?: LiquidityPoolWhereInput[]
     NOT?: LiquidityPoolWhereInput | LiquidityPoolWhereInput[]
     eventId?: StringFilter<"LiquidityPool"> | string
-    yesTokens?: IntFilter<"LiquidityPool"> | number
-    noTokens?: IntFilter<"LiquidityPool"> | number
+    yesTokens?: DecimalFilter<"LiquidityPool"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFilter<"LiquidityPool"> | Decimal | DecimalJsLike | number | string
     event?: XOR<EventsNullableScalarRelationFilter, EventsWhereInput> | null
   }
 
@@ -7204,8 +7204,8 @@ export namespace Prisma {
     AND?: LiquidityPoolWhereInput | LiquidityPoolWhereInput[]
     OR?: LiquidityPoolWhereInput[]
     NOT?: LiquidityPoolWhereInput | LiquidityPoolWhereInput[]
-    yesTokens?: IntFilter<"LiquidityPool"> | number
-    noTokens?: IntFilter<"LiquidityPool"> | number
+    yesTokens?: DecimalFilter<"LiquidityPool"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFilter<"LiquidityPool"> | Decimal | DecimalJsLike | number | string
     event?: XOR<EventsNullableScalarRelationFilter, EventsWhereInput> | null
   }, "eventId">
 
@@ -7225,23 +7225,25 @@ export namespace Prisma {
     OR?: LiquidityPoolScalarWhereWithAggregatesInput[]
     NOT?: LiquidityPoolScalarWhereWithAggregatesInput | LiquidityPoolScalarWhereWithAggregatesInput[]
     eventId?: StringWithAggregatesFilter<"LiquidityPool"> | string
-    yesTokens?: IntWithAggregatesFilter<"LiquidityPool"> | number
-    noTokens?: IntWithAggregatesFilter<"LiquidityPool"> | number
+    yesTokens?: DecimalWithAggregatesFilter<"LiquidityPool"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalWithAggregatesFilter<"LiquidityPool"> | Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionWhereInput = {
     AND?: UserPositionWhereInput | UserPositionWhereInput[]
     OR?: UserPositionWhereInput[]
     NOT?: UserPositionWhereInput | UserPositionWhereInput[]
+    id?: StringFilter<"UserPosition"> | string
     userId?: StringFilter<"UserPosition"> | string
     eventId?: StringFilter<"UserPosition"> | string
-    yesTokens?: IntFilter<"UserPosition"> | number
-    noTokens?: IntFilter<"UserPosition"> | number
+    yesTokens?: DecimalFilter<"UserPosition"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFilter<"UserPosition"> | Decimal | DecimalJsLike | number | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     event?: XOR<EventsScalarRelationFilter, EventsWhereInput>
   }
 
   export type UserPositionOrderByWithRelationInput = {
+    id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
     yesTokens?: SortOrder
@@ -7251,19 +7253,21 @@ export namespace Prisma {
   }
 
   export type UserPositionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
     userId_eventId?: UserPositionUserIdEventIdCompoundUniqueInput
     AND?: UserPositionWhereInput | UserPositionWhereInput[]
     OR?: UserPositionWhereInput[]
     NOT?: UserPositionWhereInput | UserPositionWhereInput[]
     userId?: StringFilter<"UserPosition"> | string
     eventId?: StringFilter<"UserPosition"> | string
-    yesTokens?: IntFilter<"UserPosition"> | number
-    noTokens?: IntFilter<"UserPosition"> | number
+    yesTokens?: DecimalFilter<"UserPosition"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFilter<"UserPosition"> | Decimal | DecimalJsLike | number | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     event?: XOR<EventsScalarRelationFilter, EventsWhereInput>
-  }, "userId_eventId">
+  }, "id" | "userId_eventId">
 
   export type UserPositionOrderByWithAggregationInput = {
+    id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
     yesTokens?: SortOrder
@@ -7279,10 +7283,11 @@ export namespace Prisma {
     AND?: UserPositionScalarWhereWithAggregatesInput | UserPositionScalarWhereWithAggregatesInput[]
     OR?: UserPositionScalarWhereWithAggregatesInput[]
     NOT?: UserPositionScalarWhereWithAggregatesInput | UserPositionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserPosition"> | string
     userId?: StringWithAggregatesFilter<"UserPosition"> | string
     eventId?: StringWithAggregatesFilter<"UserPosition"> | string
-    yesTokens?: IntWithAggregatesFilter<"UserPosition"> | number
-    noTokens?: IntWithAggregatesFilter<"UserPosition"> | number
+    yesTokens?: DecimalWithAggregatesFilter<"UserPosition"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalWithAggregatesFilter<"UserPosition"> | Decimal | DecimalJsLike | number | string
   }
 
   export type PriceHistoryWhereInput = {
@@ -7292,8 +7297,8 @@ export namespace Prisma {
     id?: StringFilter<"PriceHistory"> | string
     eventId?: StringFilter<"PriceHistory"> | string
     probability?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFilter<"PriceHistory"> | number
-    noTokens?: IntFilter<"PriceHistory"> | number
+    yesTokens?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
     volume?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFilter<"PriceHistory"> | Date | string
     interval?: StringFilter<"PriceHistory"> | string
@@ -7319,8 +7324,8 @@ export namespace Prisma {
     NOT?: PriceHistoryWhereInput | PriceHistoryWhereInput[]
     eventId?: StringFilter<"PriceHistory"> | string
     probability?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFilter<"PriceHistory"> | number
-    noTokens?: IntFilter<"PriceHistory"> | number
+    yesTokens?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
     volume?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFilter<"PriceHistory"> | Date | string
     interval?: StringFilter<"PriceHistory"> | string
@@ -7350,8 +7355,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"PriceHistory"> | string
     eventId?: StringWithAggregatesFilter<"PriceHistory"> | string
     probability?: DecimalWithAggregatesFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntWithAggregatesFilter<"PriceHistory"> | number
-    noTokens?: IntWithAggregatesFilter<"PriceHistory"> | number
+    yesTokens?: DecimalWithAggregatesFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalWithAggregatesFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
     volume?: DecimalWithAggregatesFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeWithAggregatesFilter<"PriceHistory"> | Date | string
     interval?: StringWithAggregatesFilter<"PriceHistory"> | string
@@ -7493,98 +7498,105 @@ export namespace Prisma {
   }
 
   export type LiquidityPoolCreateInput = {
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     event?: EventsCreateNestedOneWithoutLiquidityPoolInput
   }
 
   export type LiquidityPoolUncheckedCreateInput = {
     eventId: string
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type LiquidityPoolUpdateInput = {
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     event?: EventsUpdateOneWithoutLiquidityPoolNestedInput
   }
 
   export type LiquidityPoolUncheckedUpdateInput = {
     eventId?: StringFieldUpdateOperationsInput | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type LiquidityPoolCreateManyInput = {
     eventId: string
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type LiquidityPoolUpdateManyMutationInput = {
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type LiquidityPoolUncheckedUpdateManyInput = {
     eventId?: StringFieldUpdateOperationsInput | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionCreateInput = {
-    yesTokens?: number
-    noTokens?: number
+    id?: string
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     user: UserCreateNestedOneWithoutPositionsInput
     event: EventsCreateNestedOneWithoutPositionsInput
   }
 
   export type UserPositionUncheckedCreateInput = {
+    id?: string
     userId: string
     eventId: string
-    yesTokens?: number
-    noTokens?: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionUpdateInput = {
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     user?: UserUpdateOneRequiredWithoutPositionsNestedInput
     event?: EventsUpdateOneRequiredWithoutPositionsNestedInput
   }
 
   export type UserPositionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionCreateManyInput = {
+    id?: string
     userId: string
     eventId: string
-    yesTokens?: number
-    noTokens?: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionUpdateManyMutationInput = {
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type PriceHistoryCreateInput = {
     id?: string
     probability: Decimal | DecimalJsLike | number | string
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     volume: Decimal | DecimalJsLike | number | string
     timestamp?: Date | string
     interval: string
@@ -7595,8 +7607,8 @@ export namespace Prisma {
     id?: string
     eventId: string
     probability: Decimal | DecimalJsLike | number | string
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     volume: Decimal | DecimalJsLike | number | string
     timestamp?: Date | string
     interval: string
@@ -7605,8 +7617,8 @@ export namespace Prisma {
   export type PriceHistoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     probability?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     volume?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     interval?: StringFieldUpdateOperationsInput | string
@@ -7617,8 +7629,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
     probability?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     volume?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     interval?: StringFieldUpdateOperationsInput | string
@@ -7628,8 +7640,8 @@ export namespace Prisma {
     id?: string
     eventId: string
     probability: Decimal | DecimalJsLike | number | string
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     volume: Decimal | DecimalJsLike | number | string
     timestamp?: Date | string
     interval: string
@@ -7638,8 +7650,8 @@ export namespace Prisma {
   export type PriceHistoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     probability?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     volume?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     interval?: StringFieldUpdateOperationsInput | string
@@ -7649,8 +7661,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
     probability?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     volume?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     interval?: StringFieldUpdateOperationsInput | string
@@ -7842,17 +7854,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type EventsNullableScalarRelationFilter = {
     is?: EventsWhereInput | null
     isNot?: EventsWhereInput | null
@@ -7886,22 +7887,6 @@ export namespace Prisma {
     noTokens?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -7918,6 +7903,7 @@ export namespace Prisma {
   }
 
   export type UserPositionCountOrderByAggregateInput = {
+    id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
     yesTokens?: SortOrder
@@ -7930,6 +7916,7 @@ export namespace Prisma {
   }
 
   export type UserPositionMaxOrderByAggregateInput = {
+    id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
     yesTokens?: SortOrder
@@ -7937,6 +7924,7 @@ export namespace Prisma {
   }
 
   export type UserPositionMinOrderByAggregateInput = {
+    id?: SortOrder
     userId?: SortOrder
     eventId?: SortOrder
     yesTokens?: SortOrder
@@ -8179,14 +8167,6 @@ export namespace Prisma {
     connect?: EventsWhereUniqueInput
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type EventsUpdateOneWithoutLiquidityPoolNestedInput = {
     create?: XOR<EventsCreateWithoutLiquidityPoolInput, EventsUncheckedCreateWithoutLiquidityPoolInput>
     connectOrCreate?: EventsCreateOrConnectWithoutLiquidityPoolInput
@@ -8350,43 +8330,18 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type UserPositionCreateWithoutUserInput = {
-    yesTokens?: number
-    noTokens?: number
+    id?: string
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     event: EventsCreateNestedOneWithoutPositionsInput
   }
 
   export type UserPositionUncheckedCreateWithoutUserInput = {
+    id?: string
     eventId: string
-    yesTokens?: number
-    noTokens?: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionCreateOrConnectWithoutUserInput = {
@@ -8419,20 +8374,21 @@ export namespace Prisma {
     AND?: UserPositionScalarWhereInput | UserPositionScalarWhereInput[]
     OR?: UserPositionScalarWhereInput[]
     NOT?: UserPositionScalarWhereInput | UserPositionScalarWhereInput[]
+    id?: StringFilter<"UserPosition"> | string
     userId?: StringFilter<"UserPosition"> | string
     eventId?: StringFilter<"UserPosition"> | string
-    yesTokens?: IntFilter<"UserPosition"> | number
-    noTokens?: IntFilter<"UserPosition"> | number
+    yesTokens?: DecimalFilter<"UserPosition"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFilter<"UserPosition"> | Decimal | DecimalJsLike | number | string
   }
 
   export type LiquidityPoolCreateWithoutEventInput = {
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type LiquidityPoolUncheckedCreateWithoutEventInput = {
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type LiquidityPoolCreateOrConnectWithoutEventInput = {
@@ -8441,15 +8397,17 @@ export namespace Prisma {
   }
 
   export type UserPositionCreateWithoutEventInput = {
-    yesTokens?: number
-    noTokens?: number
+    id?: string
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     user: UserCreateNestedOneWithoutPositionsInput
   }
 
   export type UserPositionUncheckedCreateWithoutEventInput = {
+    id?: string
     userId: string
-    yesTokens?: number
-    noTokens?: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionCreateOrConnectWithoutEventInput = {
@@ -8465,8 +8423,8 @@ export namespace Prisma {
   export type PriceHistoryCreateWithoutEventInput = {
     id?: string
     probability: Decimal | DecimalJsLike | number | string
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     volume: Decimal | DecimalJsLike | number | string
     timestamp?: Date | string
     interval: string
@@ -8475,8 +8433,8 @@ export namespace Prisma {
   export type PriceHistoryUncheckedCreateWithoutEventInput = {
     id?: string
     probability: Decimal | DecimalJsLike | number | string
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     volume: Decimal | DecimalJsLike | number | string
     timestamp?: Date | string
     interval: string
@@ -8504,13 +8462,13 @@ export namespace Prisma {
   }
 
   export type LiquidityPoolUpdateWithoutEventInput = {
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type LiquidityPoolUncheckedUpdateWithoutEventInput = {
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionUpsertWithWhereUniqueWithoutEventInput = {
@@ -8552,8 +8510,8 @@ export namespace Prisma {
     id?: StringFilter<"PriceHistory"> | string
     eventId?: StringFilter<"PriceHistory"> | string
     probability?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFilter<"PriceHistory"> | number
-    noTokens?: IntFilter<"PriceHistory"> | number
+    yesTokens?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
     volume?: DecimalFilter<"PriceHistory"> | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFilter<"PriceHistory"> | Date | string
     interval?: StringFilter<"PriceHistory"> | string
@@ -8772,68 +8730,76 @@ export namespace Prisma {
   }
 
   export type UserPositionCreateManyUserInput = {
+    id?: string
     eventId: string
-    yesTokens?: number
-    noTokens?: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionUpdateWithoutUserInput = {
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     event?: EventsUpdateOneRequiredWithoutPositionsNestedInput
   }
 
   export type UserPositionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
     eventId?: StringFieldUpdateOperationsInput | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionCreateManyEventInput = {
+    id?: string
     userId: string
-    yesTokens?: number
-    noTokens?: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
   }
 
   export type PriceHistoryCreateManyEventInput = {
     id?: string
     probability: Decimal | DecimalJsLike | number | string
-    yesTokens: number
-    noTokens: number
+    yesTokens?: Decimal | DecimalJsLike | number | string
+    noTokens?: Decimal | DecimalJsLike | number | string
     volume: Decimal | DecimalJsLike | number | string
     timestamp?: Date | string
     interval: string
   }
 
   export type UserPositionUpdateWithoutEventInput = {
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     user?: UserUpdateOneRequiredWithoutPositionsNestedInput
   }
 
   export type UserPositionUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type UserPositionUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type PriceHistoryUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     probability?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     volume?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     interval?: StringFieldUpdateOperationsInput | string
@@ -8842,8 +8808,8 @@ export namespace Prisma {
   export type PriceHistoryUncheckedUpdateWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     probability?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     volume?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     interval?: StringFieldUpdateOperationsInput | string
@@ -8852,8 +8818,8 @@ export namespace Prisma {
   export type PriceHistoryUncheckedUpdateManyWithoutEventInput = {
     id?: StringFieldUpdateOperationsInput | string
     probability?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    yesTokens?: IntFieldUpdateOperationsInput | number
-    noTokens?: IntFieldUpdateOperationsInput | number
+    yesTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    noTokens?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     volume?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     interval?: StringFieldUpdateOperationsInput | string

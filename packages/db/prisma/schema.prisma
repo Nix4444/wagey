@@ -30,31 +30,32 @@ model Events {
 }
 model LiquidityPool {
   eventId   String   @id
-  yesTokens Int
-  noTokens  Int
+  yesTokens Decimal  @default(0)  @db.Decimal(15,6)
+  noTokens  Decimal  @default(0)  @db.Decimal(15,6)
   event      Events?     @relation(fields: [eventId],references: [id])
 
 }
 model UserPosition{
+  id        String          @id @default(uuid())
   userId    String
   eventId   String
-  yesTokens Int   @default(0)
-  noTokens  Int   @default(0)
-  user      User  @relation(fields: [userId],references: [id])
-  event     Events @relation(fields: [eventId],references: [id])
+  yesTokens Decimal          @default(0)  @db.Decimal(15,6)
+  noTokens  Decimal          @default(0)  @db.Decimal(15,6)
+  user      User             @relation(fields: [userId],references: [id])
+  event     Events           @relation(fields: [eventId],references: [id])
 
   @@unique([userId,eventId])
 }
 model PriceHistory {
-  id          String       @id @default(uuid())
+  id          String        @id @default(uuid())
   eventId     String
   probability Decimal       @db.Decimal(3,2)
-  yesTokens   Int
-  noTokens    Int
-  volume      Decimal      @db.Decimal(15,2)
-  timestamp   DateTime     @default(now())
+  yesTokens   Decimal       @default(0)   @db.Decimal(15,6)
+  noTokens    Decimal       @default(0)   @db.Decimal(15,6)
+  volume      Decimal       @db.Decimal(15,2)
+  timestamp   DateTime      @default(now())
   interval    String
-  event       Events       @relation(fields: [eventId],references: [id])
+  event       Events        @relation(fields: [eventId],references: [id])
 
   @@index([eventId,timestamp])
   
