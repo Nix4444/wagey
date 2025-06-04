@@ -9,9 +9,10 @@ export async function POST(req: NextRequest) {
     if (side !== "yes" && side !== "no") {
         return NextResponse.json({ message: "Invalid side" }, { status: 400 })
     }
-    if (quantity <= 0) {
+    if (quantity < 1) {
         return NextResponse.json({ message: "Invalid amount" }, { status: 400 })
     }
+    
     const pool = await prisma.liquidityPool.findUnique({
         where: {
             eventId: eventId
@@ -21,13 +22,13 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "Event not found" }, { status: 404 })
     }
     if(pool.yesTokens.lessThan(quantity) || pool.noTokens.lessThan(quantity)){
-        return NextResponse.json({ message: "Quantity is unavailable" }, { status: 400 })
+        return NextResponse.json({ message: "Insufficient tokens available" }, { status: 400 })
     }
+
     const k = pool.yesTokens.times(pool.noTokens);
-    const totalTokens = pool.yesTokens.plus(pool.noTokens)
+    
     if (side === "yes") {
-        const {totalCostInINR, totalCostInTokens} = computeYesPrice(totalTokens, k, pool, quantity)
-        console.log(totalCostInINR,totalCostInTokens)
+        const {totalCostInINR, totalCostInTokens} = calculateYesIntegralCost(pool, quantity, k)
         try{
             const result = await prisma.$transaction(async (tx) => {
                 const currentUser = await tx.user.findUnique({
@@ -81,7 +82,8 @@ export async function POST(req: NextRequest) {
             
             return NextResponse.json({ 
                 message: "Success", 
-                totalCostInINR: totalCostInINR.toString() 
+                totalCostInINR: totalCostInINR.toString(),
+                effectivePrice: totalCostInINR.dividedBy(quantity).toString()
             }, { status: 200 })
 
         } catch(e) {
@@ -94,7 +96,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
         }
     } else if(side === "no") {
-        const {totalCostInINR, totalCostInTokens} = computeNoPrice(totalTokens, k, pool, quantity)
+        const {totalCostInINR, totalCostInTokens} = calculateNoIntegralCost(pool, quantity, k)
         try{
             const result = await prisma.$transaction(async (tx) => {
                 const currentUser = await tx.user.findUnique({
@@ -144,7 +146,11 @@ export async function POST(req: NextRequest) {
                 
                 return { success: true }
             })
-            return NextResponse.json({ message: "Success", totalCostInINR: totalCostInINR.toString() }, { status: 200 })
+            return NextResponse.json({ 
+                message: "Success", 
+                totalCostInINR: totalCostInINR.toString(),
+                effectivePrice: totalCostInINR.dividedBy(quantity).toString()
+            }, { status: 200 })
         } catch(e) {
             if (e instanceof Error && e.message === "Insufficient balance") {
                 return NextResponse.json({ message: "Insufficient balance" }, { status: 400 })
@@ -157,20 +163,53 @@ export async function POST(req: NextRequest) {
     }
 }
 
-function computeYesPrice(totalTokens: any, k: any, pool: any, quantity: number){
-    const newYesTokens = pool.yesTokens.minus(quantity);
-    const newNoTokens = k.dividedBy(newYesTokens);
-    const totalCostInTokens = newNoTokens.minus(pool.noTokens);
-    const currentNoPrice = pool.yesTokens.dividedBy(totalTokens).times(10);
-    const totalCostInINR = currentNoPrice.times(totalCostInTokens);
-    return {totalCostInINR, totalCostInTokens}
+
+function calculateYesIntegralCost(pool: any, quantity: number, k: any) {
+    const steps = 100; // Number of integration steps for accuracy
+    const stepSize = quantity / steps;
+    
+    let totalCostInTokens = new (pool.yesTokens.constructor)(0);
+    let currentYesTokens = pool.yesTokens;
+    for (let i = 0; i < steps; i++) {
+        const currentNoTokens = k.dividedBy(currentYesTokens);
+        const currentTotalTokens = currentYesTokens.plus(currentNoTokens);
+        const yesPrice = currentNoTokens.dividedBy(currentTotalTokens); // Price in tokens
+        
+        const stepCost = yesPrice.times(stepSize);
+        totalCostInTokens = totalCostInTokens.plus(stepCost);
+        
+        currentYesTokens = currentYesTokens.minus(stepSize);
+    }
+    
+    const totalCostInINR = totalCostInTokens.times(10);
+    
+    return {totalCostInINR, totalCostInTokens};
 }
 
-function computeNoPrice(totalTokens: any, k: any, pool: any, quantity: number){
-    const newNoTokens = pool.noTokens.minus(quantity);
-    const newYesTokens = k.dividedBy(newNoTokens);
-    const totalCostInTokens = newYesTokens.minus(pool.yesTokens);
-    const currentYesPrice = pool.noTokens.dividedBy(totalTokens).times(10);
-    const totalCostInINR = currentYesPrice.times(totalCostInTokens);
-    return {totalCostInINR, totalCostInTokens}
+
+function calculateNoIntegralCost(pool: any, quantity: number, k: any) {
+    const steps = 100; // Number of integration steps for accuracy
+    const stepSize = quantity / steps;
+    
+    let totalCostInTokens = new (pool.noTokens.constructor)(0);
+    let currentNoTokens = pool.noTokens;
+    
+    for (let i = 0; i < steps; i++) {
+
+        const currentYesTokens = k.dividedBy(currentNoTokens);
+        const currentTotalTokens = currentYesTokens.plus(currentNoTokens);
+        
+
+        const noPrice = currentYesTokens.dividedBy(currentTotalTokens); // Price in tokens
+        
+
+        const stepCost = noPrice.times(stepSize);
+        totalCostInTokens = totalCostInTokens.plus(stepCost);
+
+        currentNoTokens = currentNoTokens.minus(stepSize);
+    }
+    
+    const totalCostInINR = totalCostInTokens.times(10); 
+    
+    return {totalCostInINR, totalCostInTokens};
 }

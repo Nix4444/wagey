@@ -166,7 +166,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/verdict/Desktop/wagey/packages/db/prisma/generated/prisma",
+      "value": "/Users/verdict/Desktop/wagey/packages/db/prisma/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -175,12 +175,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/verdict/Desktop/wagey/packages/db/prisma/schema.prisma",
+    "sourceFilePath": "/Users/verdict/Desktop/wagey/packages/db/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
