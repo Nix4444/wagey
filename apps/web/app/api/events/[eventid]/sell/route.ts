@@ -24,9 +24,6 @@ export async function POST(req: NextRequest) {
     if(!userPosition){
         return NextResponse.json({ message: "User position not found" }, { status: 404 })
     }
-    if(userPosition.yesTokens.lessThan(quantity) || userPosition.noTokens.lessThan(quantity)){
-        return NextResponse.json({ message: "Insufficient holdings" }, { status: 400 })
-    }
     
     const k = pool.yesTokens.times(pool.noTokens)
     if(side === "yes"){
