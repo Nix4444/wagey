@@ -9,107 +9,60 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  username  String   @unique
+  id        String         @id @default(uuid())
   password  String
-  role      UserRole @default(USER)
-  balance   Decimal  @default(0) @db.Decimal(15, 2)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
+  role      UserRole       @default(USER)
+  balance   Decimal        @default(0) @db.Decimal(15, 2)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  username  String         @unique
   positions UserPosition[]
-  
-  // Profile & reputation
-  totalVolume    Decimal @default(0) @db.Decimal(15, 2)
-  totalPnL       Decimal @default(0) @db.Decimal(15, 2)
-  marketsCreated Int     @default(0)
-  reputation     Int     @default(0)
 }
 
 model Events {
-  id            String      @id @default(uuid())
+  id            String         @id @default(uuid())
   title         String
-  description   String?
-  category      String?
-  endDate       DateTime?
-  resolutionDate DateTime?
-  status        EventStatus @default(ACTIVE)
-  volume        Decimal     @default(0) @db.Decimal(15, 2)
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  
-  // Resolution
-  resolvedBy    String?
-  resolutionOutcome String? // "YES", "NO", "INVALID"
-  
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   liquidityPool LiquidityPool?
-  positions     UserPosition[]    
   priceHistory  PriceHistory[]
-  
-  @@index([status, endDate])
-  @@index([category])
+  positions     UserPosition[]
 }
 
 model LiquidityPool {
-  eventId         String   @id
-  yesTokens       Decimal  @default(0)  @db.Decimal(15,6)
-  noTokens        Decimal  @default(0)  @db.Decimal(15,6)
-  
-  // Pool metrics
-  volume24h       Decimal  @default(0)  @db.Decimal(15,2)
-  trades24h       Int      @default(0)
-  lastPrice       Decimal  @default(0.5) @db.Decimal(5,4)
-  
-  // Fees collected
-  totalFees       Decimal  @default(0)  @db.Decimal(15,6)
-  
-  event           Events   @relation(fields: [eventId], references: [id])
+  eventId   String  @id
+  yesTokens Decimal @default(0) @db.Decimal(15, 6)
+  noTokens  Decimal @default(0) @db.Decimal(15, 6)
+  event     Events  @relation(fields: [eventId], references: [id])
 }
 
-model UserPosition{
-  id        String   @id @default(uuid())
+model UserPosition {
   userId    String
   eventId   String
-  yesTokens Decimal  @default(0)  @db.Decimal(15,6)
-  noTokens  Decimal  @default(0)  @db.Decimal(15,6)
-  
-  // Cost tracking for P&L
-  totalInvested   Decimal @default(0) @db.Decimal(15,2)
-  averageYesPrice Decimal @default(0) @db.Decimal(5,4)
-  averageNoPrice  Decimal @default(0) @db.Decimal(5,4)
-  
-  user      User     @relation(fields: [userId], references: [id])
-  event     Events   @relation(fields: [eventId], references: [id])
+  yesTokens Decimal @default(0) @db.Decimal(15, 6)
+  noTokens  Decimal @default(0) @db.Decimal(15, 6)
+  id        String  @id @default(uuid())
+  event     Events  @relation(fields: [eventId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
 
-  @@unique([userId,eventId])
+  @@unique([userId, eventId])
 }
 
 model PriceHistory {
   id          String   @id @default(uuid())
   eventId     String
-  probability Decimal  @db.Decimal(5,4)
-  yesTokens   Decimal  @default(0)   @db.Decimal(15,6)
-  noTokens    Decimal  @default(0)   @db.Decimal(15,6)
-  volume      Decimal  @db.Decimal(15,2)
+  probability Decimal  @db.Decimal(3, 2)
+  yesTokens   Decimal  @default(0) @db.Decimal(15, 6)
+  noTokens    Decimal  @default(0) @db.Decimal(15, 6)
+  volume      Decimal  @db.Decimal(15, 2)
   timestamp   DateTime @default(now())
-  interval    String   // 1m, 5m, 1h, 1d
-  
+  interval    String
   event       Events   @relation(fields: [eventId], references: [id])
 
-  @@index([eventId,timestamp])
-  @@index([interval, timestamp])
+  @@index([eventId, timestamp])
 }
 
 enum UserRole {
   ADMIN
   USER
 }
-
-enum EventStatus {
-  ACTIVE
-  PAUSED
-  ENDED
-  RESOLVED
-  INVALID
-}
-
