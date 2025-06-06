@@ -14,13 +14,14 @@ export async function GET(req:NextRequest):Promise<NextResponse>{
     })
 
     if(!liquidity){
-        return NextResponse.json({message:"Event does not exist"},{status:404})
+        return NextResponse.json({message:"error",reason:"Event does not exist"},{status:404})
     }
     
     const totalTokens = liquidity.yesTokens.plus(liquidity.noTokens)
     const yesPrice = liquidity.noTokens.dividedBy(totalTokens).times(10)
     const noPrice = liquidity.yesTokens.dividedBy(totalTokens).times(10)
     return NextResponse.json({
+        message:"success",
         yesPrice: yesPrice.toString(),
         noPrice: noPrice.toString(),
         liquidity

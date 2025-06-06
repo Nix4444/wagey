@@ -17,6 +17,7 @@ model User {
   updatedAt DateTime       @updatedAt
   username  String         @unique
   positions UserPosition[]
+  orderHistory OrderHistory[]
 }
 
 model Events {
@@ -24,9 +25,11 @@ model Events {
   title         String
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+  settled       Boolean        @default(false)
   liquidityPool LiquidityPool?
   priceHistory  PriceHistory[]
   positions     UserPosition[]
+  orderHistory  OrderHistory[]
 }
 
 model LiquidityPool {
@@ -62,7 +65,27 @@ model PriceHistory {
   @@index([eventId, timestamp])
 }
 
+model OrderHistory {
+  id        String   @id @default(uuid())
+  userId    String
+  eventId   String
+  type      OrderType
+  yesTokens Decimal?  @default(0) @db.Decimal(15, 6)
+  noTokens  Decimal?  @default(0) @db.Decimal(15, 6)
+  amount    Decimal  @db.Decimal(15, 2)
+  timestamp DateTime @default(now())
+  event     Events   @relation(fields: [eventId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, timestamp])
+}
+
 enum UserRole {
   ADMIN
   USER
+}
+
+enum OrderType {
+  BUY
+  SELL
 }

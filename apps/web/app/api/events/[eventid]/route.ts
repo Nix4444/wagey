@@ -8,9 +8,8 @@ export async function GET(req:NextRequest,res:NextResponse): Promise<NextRespons
         }
     })
     if(!event){
-        
-        return NextResponse.json({message:"Event not found"},{status:404})
-    }
-    return NextResponse.json(event)
+        return NextResponse.json({message:"error",reason:"Event not found"},{status:404})
+    }       
+    return NextResponse.json({message:"success",event},{status:200})
 
 }

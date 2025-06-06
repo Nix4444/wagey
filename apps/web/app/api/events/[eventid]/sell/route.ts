@@ -6,23 +6,23 @@ export async function POST(req: NextRequest) {
     
     const { side, quantity } = await req.json()
     if (side !== "yes" && side !== "no") {
-        return NextResponse.json({ message: "Invalid side" }, { status: 400 })
+        return NextResponse.json({ message: "error",reason: "Invalid side" }, { status: 400 })
     }
     if (quantity < 1) {
-        return NextResponse.json({ message: "Invalid amount" }, { status: 400 })
+        return NextResponse.json({ message: "error",reason: "Invalid amount" }, { status: 400 })
     }
 
     const pool = await prisma.liquidityPool.findUnique({
         where: { eventId: eventId }
     })
     if (!pool) {
-        return NextResponse.json({ message: "Event not found" }, { status: 404 })
+        return NextResponse.json({ message: "error",reason: "Event not found" }, { status: 404 })
     }
     const userPosition = await prisma.userPosition.findUnique({
         where: { userId_eventId: { userId: userId, eventId: eventId! } }
     })
     if(!userPosition){
-        return NextResponse.json({ message: "User position not found" }, { status: 404 })
+        return NextResponse.json({ message: "error",reason: "User position not found" }, { status: 404 })
     }
     
     const k = pool.yesTokens.times(pool.noTokens)
@@ -68,15 +68,24 @@ export async function POST(req: NextRequest) {
                     noTokens: { decrement: tokenCostInTokens }
                 }
             })
-            return { success: true }
+            const order = await tx.orderHistory.create({
+                data:{
+                    userId: userId,
+                    eventId: eventId!,
+                    yesTokens: quantity,
+                    amount: amount.toString(),
+                    type: "SELL"
+                }
+            })
+            return { success: true,orderId:order.id }
         })
-        return NextResponse.json({ message: "Successfully sold", credits: amount, effectivePrice: amount.dividedBy(quantity) }, { status: 200 })
+        return NextResponse.json({ message: "success", credits: amount, effectivePrice: amount.dividedBy(quantity),orderId:result.orderId }, { status: 200 })
 
         } catch(e){
             if(e instanceof Error && e.message === "Insufficient holdings"){
-                return NextResponse.json({ message: "Insufficient holdings" }, { status: 400 })
+                return NextResponse.json({ message: "error",reason: "Insufficient holdings" }, { status: 400 })
             }
-            return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
+            return NextResponse.json({ message: "error",reason: "Internal Server Error" }, { status: 500 })
         }
     }
     else if(side === "no"){
@@ -117,15 +126,24 @@ export async function POST(req: NextRequest) {
                     yesTokens: { decrement: tokenCostInTokens }
                 }
             })
-            return { success: true }
+            const order = await tx.orderHistory.create({
+                data:{
+                    userId: userId,
+                    eventId: eventId!,
+                    noTokens: quantity,
+                    amount: amount.toString(),
+                    type: "SELL"
+                }
+            })
+            return { success: true,orderId:order.id }
         })
-        return NextResponse.json({ message: "Successfully sold", credits: amount, effectivePrice: amount.dividedBy(quantity) }, { status: 200 })
+        return NextResponse.json({ message: "success", credits: amount, effectivePrice: amount.dividedBy(quantity),orderId:result.orderId }, { status: 200 })
 
         } catch(e){
             if(e instanceof Error && e.message === "Insufficient holdings"){
-                return NextResponse.json({ message: "Insufficient holdings" }, { status: 400 })
+                return NextResponse.json({ message: "error",reason: "Insufficient holdings" }, { status: 400 })
             }
-            return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
+            return NextResponse.json({ message: "error",reason: "Internal Server Error" }, { status: 500 })
         }
     }
 }

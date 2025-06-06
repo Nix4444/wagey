@@ -8,7 +8,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         }
     })
     if(!events.length){
-        return NextResponse.json({message:"No events to be displayed"},{status:200})
+        return NextResponse.json({message:"error",reason:"No events to be displayed"},{status:200})
     }
-    return NextResponse.json(events)
+    return NextResponse.json({message:"success",events},{status:200})
 }
