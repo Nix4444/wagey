@@ -1,4 +1,4 @@
-import { SigninCard } from "../components/SigninCard"
+import { SignupCard } from "../components/SignupCard"
 import Image from "next/image"
 
 export default function Signup() {
@@ -7,12 +7,12 @@ export default function Signup() {
       <div className="flex-1 flex items-center justify-center p-4 lg:p-8">
         <div className="w-full max-w-md">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-center lg:text-left">Welcome Back!</h1>
+            <h1 className="text-2xl font-bold text-center lg:text-left">Welcome!</h1>
             <p className="text-muted-foreground text-center lg:text-left mt-2">
-              Login to your account to get started
+              Create your account to get started
             </p>
           </div>
-          <SigninCard />
+          <SignupCard />
         </div>
       </div>
       

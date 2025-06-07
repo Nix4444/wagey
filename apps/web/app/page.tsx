@@ -4,8 +4,9 @@ import { useSession } from "next-auth/react";
 
 export default function Home() {
   const session = useSession();
+
   return (
-    <div>
+    <div className="text-red-500">
       hello
     </div>
   );
